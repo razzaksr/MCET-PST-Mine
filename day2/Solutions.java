@@ -138,7 +138,7 @@ public class Solutions {
     ✅ This solution runs in O(s + t) time and uses O(alphabet) space.
     */
 
-    // variable window
+    // fixed window
     public static int totalFruit(int[] fruits) {
         HashMap<Integer, Integer> map = new HashMap<>();
         int left = 0, maxLen = 0;

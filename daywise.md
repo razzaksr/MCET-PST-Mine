@@ -1,4 +1,4 @@
-Day1 - Day 4 as per TOC - 2Feb2026
+Day1 - Day4 as per TOC - 2Feb2026
     container in most water - https://leetcode.com/problems/container-with-most-water/description/?envType=problem-list-v2&envId=array
     
     trapping rain water problem - https://leetcode.com/problems/trapping-rain-water/?envType=problem-list-v2&envId=array
@@ -11,7 +11,8 @@ Day1 - Day 4 as per TOC - 2Feb2026
     Task:
         ZigZagConversion - https://leetcode.com/problems/zigzag-conversion/description/
 
-Day2 - Day 5 as per TOC - 3Feb2026
+
+Day2 - Day5 as per TOC - 3Feb2026
     gfg maximum sum subarray of size k - https://www.geeksforgeeks.org/problems/max-sum-subarray-of-size-k5313/1
 
     Longest Substring without repeating a character - https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
@@ -25,3 +26,21 @@ Day2 - Day 5 as per TOC - 3Feb2026
     Subarry sum equal k - https://leetcode.com/problems/subarray-sum-equals-k/description/
     
     majority element I all appraoches - https://leetcode.com/problems/majority-element/description/
+
+
+Day3 - Day6 as per TOC - 4Feb2026
+    binary search - https://leetcode.com/problems/binary-search/description/
+    
+    find min in rotated sorted matrix - https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/
+    
+    search in a rotated sorted matrix - https://leetcode.com/problems/search-in-rotated-sorted-array/description/
+    
+    koko eating bananas - https://leetcode.com/problems/koko-eating-bananas/description/
+
+    search in 2D matrix I - https://leetcode.com/problems/search-a-2d-matrix/description/
+
+    rotate array - https://leetcode.com/problems/rotate-array/description/
+
+    insertion sort - https://leetcode.com/problems/insertion-sort-list/description/
+    
+
