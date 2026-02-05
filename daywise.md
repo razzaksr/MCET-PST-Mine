@@ -32,15 +32,35 @@ Day3 - Day6 as per TOC - 4Feb2026
     binary search - https://leetcode.com/problems/binary-search/description/
     
     find min in rotated sorted matrix - https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/
+
+    rotate array - https://leetcode.com/problems/rotate-array/description/
+
+    search in 2D matrix I - https://leetcode.com/problems/search-a-2d-matrix/description/
     
     search in a rotated sorted matrix - https://leetcode.com/problems/search-in-rotated-sorted-array/description/
     
     koko eating bananas - https://leetcode.com/problems/koko-eating-bananas/description/
 
-    search in 2D matrix I - https://leetcode.com/problems/search-a-2d-matrix/description/
-
-    rotate array - https://leetcode.com/problems/rotate-array/description/
+    Minimum Time to Complete Trips - https://leetcode.com/problems/minimum-time-to-complete-trips/description/
 
     insertion sort - https://leetcode.com/problems/insertion-sort-list/description/
     
 
+Day4 - Day7 as per TOC - 5Feb2026
+    greedy knapsack - 
+
+    Jump Game II - https://leetcode.com/problems/jump-game-ii/description/
+    
+    merge intervals - https://leetcode.com/problems/merge-intervals/description/
+
+    nonoverlapping intervals - https://leetcode.com/problems/non-overlapping-intervals/description/
+
+    job scheudling - https://leetcode.com/problems/task-scheduler/description/
+    
+    intro dp
+    
+    fibonaci all approaches - 
+
+    Coin Change - https://leetcode.com/problems/coin-change/description/
+    
+    Nth Tribonacci - https://leetcode.com/problems/n-th-tribonacci-number/description/

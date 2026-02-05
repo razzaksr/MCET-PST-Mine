@@ -1,5 +1,7 @@
 package day3;
 
+import java.util.Arrays;
+
 public class Solutions {
     public int search(int[] nums, int target) {
         int left = 0, right = nums.length - 1;
@@ -31,18 +33,14 @@ public class Solutions {
             if (nums[mid] == target) return mid; // found
             // Check if left half is sorted
             if (nums[left] <= nums[mid]) {
-                if (target >= nums[left] && target < nums[mid]) {
+                if (target >= nums[left] && target < nums[mid]) 
                     right = mid - 1; // target in left half
-                } else {
-                    left = mid + 1;  // target in right half
-                }
+                else left = mid + 1;  // target in right half
             } else {
                 // Right half is sorted
-                if (target > nums[mid] && target <= nums[right]) {
+                if (target > nums[mid] && target <= nums[right]) 
                     left = mid + 1;  // target in right half
-                } else {
-                    right = mid - 1; // target in left half
-                }
+                else right = mid - 1; // target in left half
             }
         }
         return -1; // not found
@@ -73,33 +71,25 @@ public class Solutions {
         int right = getMax(piles); // maximum pile size
         while (left < right) {
             int mid = left + (right - left) / 2;
-            if (canEatAll(piles, h, mid)) {
-                right = mid; // try smaller speed
-            } else {
-                left = mid + 1; // need larger speed
-            }
+            if (canEatAll(piles, h, mid)) right = mid; // try smaller speed
+            else left = mid + 1; // need larger speed
         }
-
         return left;
     }
-
     private static int getMax(int[] piles) {
         int max = 0;
-        for (int pile : piles) {
-            max = Math.max(max, pile);
-        }
+        max = Arrays.stream(piles).max().orElse(0);
         return max;
     }
-
     private static boolean canEatAll(int[] piles, int h, int speed) {
         long hours = 0;
-        for (int pile : piles) {
+        for (int pile : piles) 
             // ceil(pile / speed) → (pile + speed - 1) / speed
             hours += (pile + speed - 1) / speed;
-        }
         return hours <= h;
     }  
     // koku banana
+    
     public boolean searchMatrix(int[][] matrix, int target) {
         int rows = matrix.length;
         int cols = matrix[0].length;
@@ -109,13 +99,9 @@ public class Solutions {
             // Map mid back to 2D indices
             int row = mid / cols;
             int col = mid % cols;
-            if (matrix[row][col] == target) {
-                return true;
-            } else if (matrix[row][col] < target) {
-                left = mid + 1;
-            } else {
-                right = mid - 1;
-            }
+            if (matrix[row][col] == target) return true;
+            else if (matrix[row][col] < target) left = mid + 1;
+            else right = mid - 1;
         }
         return false;
     }
@@ -156,6 +142,31 @@ public class Solutions {
     Output: [5,6,7,1,2,3,4]
     Reversal Method time - O(n), space - O(1)
     */
+
+    public long minimumTime(int[] time, int totalTrips) {
+        long left = 1;
+        long right = Long.MAX_VALUE; // safe upper bound
+        long ans = right;
+        while (left <= right) {
+            long mid = left + (right - left) / 2;
+            if (canComplete(time, totalTrips, mid)) {
+                ans = mid;
+                right = mid - 1; // try smaller time
+            } else {
+                left = mid + 1; // need more time
+            }
+        }
+        return ans;
+    }
+    private static boolean canComplete(int[] time, int totalTrips, long givenTime) {
+        long trips = 0;
+        for (int t : time) {
+            trips += givenTime / t; // trips each bus can finish
+            if (trips >= totalTrips) return true; // early exit
+        }
+        return trips >= totalTrips;
+    }
+
     public class ListNode {
         int val;
         ListNode next;
@@ -165,31 +176,22 @@ public class Solutions {
     }
     public ListNode insertionSortList(ListNode head) {
         if (head == null) return null;
-
         // Dummy node to simplify insertions
         ListNode dummy = new ListNode(0);
         dummy.next = head;
-        ListNode curr = head;
-        ListNode prev = dummy;
-
+        ListNode curr = head, prev = dummy;
         while (curr != null) {
             if (curr.next != null && curr.next.val < curr.val) {
                 // Find position to insert curr.next
                 ListNode toInsert = curr.next;
                 ListNode pos = dummy;
-
                 // Find where to insert toInsert
-                while (pos.next.val < toInsert.val) {
-                    pos = pos.next;
-                }
-
+                while (pos.next.val < toInsert.val) pos = pos.next;
                 // Insert toInsert after pos
                 curr.next = toInsert.next;
                 toInsert.next = pos.next;
                 pos.next = toInsert;
-            } else {
-                curr = curr.next;
-            }
+            } else curr = curr.next;
         }
         return dummy.next;
     }
@@ -197,8 +199,9 @@ public class Solutions {
     🧠 Stepwise Explanation
     - Use a dummy node to simplify insertion at the head.
     - Traverse the list with curr.
-    - If curr.next is smaller than curr, it’s out of order → find the correct position starting from dummy.
-    - Insert curr.next into its correct position.
+    - If curr.next is smaller than curr, 
+            - it’s out of order → find the correct position starting from dummy.
+            - Insert curr.next into its correct position.
     - Otherwise, move curr forward.
     - Continue until the list is sorted.
 
