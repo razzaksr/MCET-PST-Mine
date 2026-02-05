@@ -1,4 +1,4 @@
-Day1 - Day4 as per TOC - 2Feb2026
+Day1 - Day4 as per TOC - 2Feb2026 - Two Pointers and Hashtable
     container in most water - https://leetcode.com/problems/container-with-most-water/description/?envType=problem-list-v2&envId=array
     
     trapping rain water problem - https://leetcode.com/problems/trapping-rain-water/?envType=problem-list-v2&envId=array
@@ -12,7 +12,7 @@ Day1 - Day4 as per TOC - 2Feb2026
         ZigZagConversion - https://leetcode.com/problems/zigzag-conversion/description/
 
 
-Day2 - Day5 as per TOC - 3Feb2026
+Day2 - Day5 as per TOC - 3Feb2026 - Sliding Window
     gfg maximum sum subarray of size k - https://www.geeksforgeeks.org/problems/max-sum-subarray-of-size-k5313/1
 
     Longest Substring without repeating a character - https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
@@ -28,7 +28,7 @@ Day2 - Day5 as per TOC - 3Feb2026
     majority element I all appraoches - https://leetcode.com/problems/majority-element/description/
 
 
-Day3 - Day6 as per TOC - 4Feb2026
+Day3 - Day6 as per TOC - 4Feb2026 - Binary Search, Divide and Conquer
     binary search - https://leetcode.com/problems/binary-search/description/
     
     find min in rotated sorted matrix - https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/
@@ -46,9 +46,7 @@ Day3 - Day6 as per TOC - 4Feb2026
     insertion sort - https://leetcode.com/problems/insertion-sort-list/description/
     
 
-Day4 - Day7 as per TOC - 5Feb2026
-    greedy knapsack - 
-
+Day4 - Day7 as per TOC - 5Feb2026 - greedy, DP and Knapsack DP
     Jump Game II - https://leetcode.com/problems/jump-game-ii/description/
     
     merge intervals - https://leetcode.com/problems/merge-intervals/description/
@@ -57,10 +55,26 @@ Day4 - Day7 as per TOC - 5Feb2026
 
     job scheudling - https://leetcode.com/problems/task-scheduler/description/
     
-    intro dp
-    
-    fibonaci all approaches - 
+    intro dp:
+    fibonaci all approaches - Greedy, DP
+
+    Nth Tribonacci - https://leetcode.com/problems/n-th-tribonacci-number/description/
 
     Coin Change - https://leetcode.com/problems/coin-change/description/
+
+    Knapsack DP:
+    Pizza With 3n Slices - https://leetcode.com/problems/pizza-with-3n-slices/description/
+
+
+Day5 - Day8 as per TOC - 6Feb2026 - DP
+    decode ways - https://leetcode.com/problems/decode-ways/description/
+
+    climbing stairs - https://leetcode.com/problems/climbing-stairs/
     
-    Nth Tribonacci - https://leetcode.com/problems/n-th-tribonacci-number/description/
+    friend sharing gfg - https://www.geeksforgeeks.org/problems/friends-pairing-problem5425/1
+
+    house robber I - https://leetcode.com/problems/house-robber/description/
+
+    house robber II - https://leetcode.com/problems/house-robber-ii/description/
+
+    unique grid paths I - https://leetcode.com/problems/unique-paths/description/

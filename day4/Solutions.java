@@ -153,7 +153,7 @@ public class Solutions {
         }
         return prev1;
     }
-    public static int tribonacci(int n) {
+    public static int tribonacciViaMemory(int n) {
         if (n == 0) return 0;
         if (n == 1 || n == 2) return 1;
         int[] dp = new int[n + 1];
@@ -163,6 +163,21 @@ public class Solutions {
         for (int i = 3; i <= n; i++) dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
         return dp[n];
     }
+    public static int tribonacciViaConst(int n) {
+        if (n == 0) return 0;
+        if (n == 1 || n == 2) return 1;
+        int prev2 = 0;
+        int prev1 = 1;
+        int prev = 1;
+        for (int i = 3; i <= n; i++) {
+            int curr = prev + prev1 + prev2;
+            prev2 = prev1;
+            prev1 = prev;
+            prev = curr;
+        }
+        return prev;
+    }
+    // DP
     public static int count(int[] dom, int target){
         int initial = target+1;
         int[] dp = new int[initial];
@@ -177,5 +192,181 @@ public class Solutions {
         if(dp[target]<initial) return dp[target];
         else return -1;
         // return (dp[target]<target+1)?dp[target]:-1;
+    }
+    // Kanpsack DP
+    /*
+    Ah, excellent observation — and you’re right: on LeetCode, *Pizza With 3n Slices* (#1388) is categorized under **Knapsack DP**. Let me explain why, because at first glance it doesn’t look like a “knapsack” problem in the traditional sense.
+
+---
+
+## 🧩 Why Pizza Problem Is Tagged as Knapsack DP
+
+- **Knapsack essence:**  
+  In knapsack problems, you decide whether to **take or skip** items to maximize value under constraints (like weight capacity or adjacency rules).
+
+- **Pizza problem structure:**  
+  - You have `3n` slices (items).  
+  - You must pick exactly `n` slices (capacity constraint).  
+  - You cannot pick adjacent slices (restriction similar to knapsack’s “capacity” but applied to adjacency).  
+  - Goal: maximize the sum of chosen slices (value).  
+
+This is conceptually similar to **0/1 knapsack**:
+- Each slice is like an item.  
+- You either **take it** (and skip its neighbors) or **leave it**.  
+- The “capacity” here is not weight but the **number of slices you’re allowed to pick (n)**.  
+
+---
+
+## ⚙️ DP Formulation (Knapsack Style)
+
+- Define `dp[i][j]` = maximum sum using the first `i` slices, choosing `j` slices.  
+- Transition:  
+  - Skip slice `i`: `dp[i-1][j]`  
+  - Take slice `i`: `dp[i-2][j-1] + arr[i-1]`  
+- This is exactly the same recurrence as **knapsack DP**, just with adjacency instead of weight.
+
+---
+
+## 🔍 Analogy
+
+- **Classic Knapsack:**  
+  - Constraint = total weight ≤ W  
+  - Decision = take item or skip item  
+
+- **Pizza Problem:**  
+  - Constraint = total slices taken = n, and no two adjacent  
+  - Decision = take slice or skip slice  
+
+So LeetCode tags it under **Knapsack DP** because the DP recurrence is structurally identical to knapsack.
+
+---
+
+## ✅ Conclusion
+
+Not every DP with arrays is knapsack, but the pizza problem fits the **knapsack DP pattern** because:
+- You’re maximizing a sum.  
+- You have a capacity constraint (number of slices).  
+- You make binary choices (take/skip).  
+- The recurrence mirrors knapsack’s DP.
+    Perfect, S — let’s do a **step‑by‑step explanation with an example walkthrough** for the *Pizza With 3n Slices* problem using the **optimized rolling DP solution**.  
+
+---
+
+## 🧩 Problem Restatement
+- You have a circular pizza cut into `3n` slices.  
+- You can pick exactly `n` slices.  
+- Rule: If you pick a slice, you cannot pick its immediate neighbors (because friends take them).  
+- Goal: Maximize the sum of the chosen slices.
+
+---
+
+## ⚙️ Stepwise Approach
+
+### Step 1: Handle Circular Constraint
+- Because the pizza is circular, you cannot pick both the **first** and **last** slice.  
+- So we split into **two cases**:
+  1. Exclude the last slice → solve on `[0..n-2]`.  
+  2. Exclude the first slice → solve on `[1..n-1]`.  
+- Answer = `max(case1, case2)`.
+
+---
+
+### Step 2: Define DP State
+We use rolling arrays (`prev2`, `prev1`, `curr`) to optimize space.
+
+- `dp[i][j]` = maximum sum using first `i` slices, choosing `j` slices.  
+- Transition:
+  - Skip slice `i`: `dp[i-1][j]`  
+  - Take slice `i`: `dp[i-2][j-1] + arr[i-1]`  
+- So:
+\[
+dp[i][j] = \max(dp[i-1][j], dp[i-2][j-1] + arr[i-1])
+\]
+
+---
+
+### Step 3: Rolling Arrays
+- Instead of storing full 2D table, we keep only **three rows**:
+  - `prev2` → dp[i-2][*]  
+  - `prev1` → dp[i-1][*]  
+  - `curr` → dp[i][*]  
+
+---
+
+## 🔍 Example Walkthrough
+
+Input: `slices = [1,2,3,4,5,6]`  
+Here, `n = 6`, so `choose = 2`.
+
+---
+
+### Case 1: Exclude last slice → `[1,2,3,4,5]`
+
+We want to pick 2 slices.
+
+| i | Slice Value | j=1 (pick 1 slice) | j=2 (pick 2 slices) | Explanation |
+|---|-------------|--------------------|---------------------|-------------|
+| 1 | 1           | 1                  | 0                   | Only one slice available |
+| 2 | 2           | 2                  | 0                   | Best single slice is 2 |
+| 3 | 3           | 3                  | 4                   | Pick slices 1 & 3 → sum=4 |
+| 4 | 4           | 4                  | 6                   | Pick slices 2 & 4 → sum=6 |
+| 5 | 5           | 5                  | 8                   | Pick slices 3 & 5 → sum=8 |
+
+**Result Case 1 = 8**
+
+---
+
+### Case 2: Exclude first slice → `[2,3,4,5,6]`
+
+We want to pick 2 slices.
+
+| i | Slice Value | j=1 (pick 1 slice) | j=2 (pick 2 slices) | Explanation |
+|---|-------------|--------------------|---------------------|-------------|
+| 1 | 2           | 2                  | 0                   | Only one slice available |
+| 2 | 3           | 3                  | 0                   | Best single slice is 3 |
+| 3 | 4           | 4                  | 6                   | Pick slices 2 & 4 → sum=6 |
+| 4 | 5           | 5                  | 8                   | Pick slices 3 & 5 → sum=8 |
+| 5 | 6           | 6                  | 10                  | Pick slices 4 & 6 → sum=10 |
+
+**Result Case 2 = 10**
+
+---
+
+### Step 4: Final Answer
+\[
+\max(8, 10) = 10
+\]
+
+So the algorithm outputs **10**.
+
+---
+
+## 🛠 Complexity
+- **Time Complexity:** \(O(n^2)\) (since we fill DP for `n × (n/3)` states).  
+- **Space Complexity:** \(O(n)\) (rolling arrays instead of full 2D table).  
+    */
+    public int maxSizeSlices(int[] slices) {
+        int n = slices.length;
+        int choose = n / 3;
+        // Case 1: exclude last slice
+        int case1 = maxSum(Arrays.copyOfRange(slices, 0, n - 1), choose);
+        // Case 2: exclude first slice
+        int case2 = maxSum(Arrays.copyOfRange(slices, 1, n), choose);
+        return Math.max(case1, case2);
+    }
+
+    private int maxSum(int[] arr, int choose) {
+        int m = arr.length;
+        // dp[j] = max sum picking j slices up to current index
+        int[] prev2 = new int[choose + 1]; // dp[i-2][*]
+        int[] prev1 = new int[choose + 1]; // dp[i-1][*]
+        int[] curr  = new int[choose + 1]; // dp[i][*]
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= choose; j++) 
+                curr[j] = Math.max(prev1[j], prev2[j - 1] + arr[i - 1]);
+            // roll arrays forward
+            prev2 = prev1.clone();prev1 = curr.clone();
+        }
+        return prev1[choose];
     }
 }
