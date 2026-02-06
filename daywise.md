@@ -67,6 +67,8 @@ Day4 - Day7 as per TOC - 5Feb2026 - greedy, DP and Knapsack DP
 
 
 Day5 - Day8 as per TOC - 6Feb2026 - DP
+    0 - 1 Knapsack Problem gfg - https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
+
     decode ways - https://leetcode.com/problems/decode-ways/description/
 
     climbing stairs - https://leetcode.com/problems/climbing-stairs/

@@ -179,7 +179,7 @@ public class Solutions {
         // Dummy node to simplify insertions
         ListNode dummy = new ListNode(0);
         dummy.next = head;
-        ListNode curr = head, prev = dummy;
+        ListNode curr = head;
         while (curr != null) {
             if (curr.next != null && curr.next.val < curr.val) {
                 // Find position to insert curr.next
