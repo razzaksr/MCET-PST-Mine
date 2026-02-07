@@ -77,6 +77,18 @@ Day5 - Day8 as per TOC - 6Feb2026 - DP
 
     house robber I - https://leetcode.com/problems/house-robber/description/
 
+    unique grid paths I - https://leetcode.com/problems/unique-paths/description/
+
+
+Day6 - Day9 as per TOC - 7Feb2026 - DP
     house robber II - https://leetcode.com/problems/house-robber-ii/description/
 
-    unique grid paths I - https://leetcode.com/problems/unique-paths/description/
+    longest commmon subsequence - https://leetcode.com/problems/longest-common-subsequence/description/
+    
+    longest palindromic subsequene - https://leetcode.com/problems/longest-palindromic-subsequence/description/
+    
+    longest Increasing subsequence - https://leetcode.com/problems/longest-increasing-subsequence/description/
+    
+    edit distance - https://leetcode.com/problems/edit-distance/description/
+    
+    longest valid parantheisis - https://leetcode.com/problems/longest-valid-parentheses/description/

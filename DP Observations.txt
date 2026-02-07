@@ -1,0 +1,244 @@
+Perfect, S — let’s put the **Dynamic Programming (DP)** and the **Greedy + Binary Search (Patience Sorting)** approaches for **Longest Increasing Subsequence (LIS)** side by side, with a stepwise dry‑run so you can see exactly how they differ but arrive at the same answer.
+
+---
+
+## 🧩 Example Input
+`nums = [10, 9, 2, 5, 3, 7, 101, 18]`  
+Expected LIS length = **4** (subsequence `[2, 3, 7, 101]`).
+
+---
+
+## ✅ Approach 1: Dynamic Programming (O(n²))
+
+### Code
+```java
+class SolutionDP {
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp, 1);
+        int maxLen = 1;
+
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+            maxLen = Math.max(maxLen, dp[i]);
+        }
+        return maxLen;
+    }
+}
+```
+
+### Dry‑Run Table (DP array evolution)
+| i | nums[i] | dp[i] after update | LIS so far |
+|---|---------|--------------------|-------------|
+| 0 | 10      | 1                  | 1 |
+| 1 | 9       | 1                  | 1 |
+| 2 | 2       | 1                  | 1 |
+| 3 | 5       | 2 (extends 2)      | 2 |
+| 4 | 3       | 2 (extends 2)      | 2 |
+| 5 | 7       | 3 (extends 5 or 3) | 3 |
+| 6 | 101     | 4 (extends 7)      | 4 |
+| 7 | 18      | 4 (extends 7)      | 4 |
+
+Final Answer = 4.
+
+---
+
+## ✅ Approach 2: Greedy + Binary Search (O(n log n))
+
+### Code
+```java
+class SolutionBinary {
+    public int lengthOfLIS(int[] nums) {
+        int[] sub = new int[nums.length];
+        int size = 0;
+
+        for (int num : nums) {
+            int i = Arrays.binarySearch(sub, 0, size, num);
+            if (i < 0) i = -(i + 1); // insertion point
+            sub[i] = num;
+            if (i == size) size++;
+        }
+        return size;
+    }
+}
+```
+
+### Dry‑Run Table (`sub` array evolution)
+| Step | num | sub after update        | size |
+|------|-----|-------------------------|------|
+| 1    | 10  | [10]                    | 1 |
+| 2    | 9   | [9]                     | 1 |
+| 3    | 2   | [2]                     | 1 |
+| 4    | 5   | [2,5]                   | 2 |
+| 5    | 3   | [2,3]                   | 2 |
+| 6    | 7   | [2,3,7]                 | 3 |
+| 7    | 101 | [2,3,7,101]             | 4 |
+| 8    | 18  | [2,3,7,18]              | 4 |
+
+Final Answer = 4.
+
+---
+
+## 📊 Comparison
+
+| Approach                  | Type                  | Time Complexity | Space Complexity | Notes |
+|---------------------------|-----------------------|-----------------|------------------|-------|
+| DP (O(n²))                | Dynamic Programming   | O(n²)           | O(n)             | Easier to understand, slower |
+| Binary Search (O(n log n))| Greedy + Binary Search| O(n log n)      | O(n)             | Optimal runtime, lean memory |
+
+---
+
+## 🎯 Key Insight
+- **DP version** explicitly builds LIS lengths for each index.  
+- **Binary search version** maintains only the minimal subsequence tails.  
+- Both yield the same LIS length, but the second is much faster and memory‑lean.  
+
+---
+
+Would you like me to now **contrast their memory footprints** (showing how the DP table vs. the `sub` array scales with input size), so you can see why the binary search version consistently beats DP in memory percentiles?
+
+
+Edit Distance 
+Old 2Dimensional DP way
+public static int count(String alpha, String beta){
+        int rowSize = alpha.length();
+        int colSize = beta.length();
+
+        int[][] poss = new int[rowSize+1][colSize+1];
+
+        // fill default values
+        for(int index = 0; index <= rowSize; index++){poss[index][0] = index;}
+        for(int index = 0; index <= colSize; index++){poss[0][index] = index;}
+
+        // for(int[] row:poss){System.out.println(Arrays.toString(row));}
+
+        // fill the poss
+        for(int row = 1; row <= rowSize; row++){
+            for(int col=1; col <= colSize; col++){
+                if(alpha.charAt(row-1)==beta.charAt(col-1)){
+                    poss[row][col]=poss[row-1][col-1];
+                }
+                else{
+                    poss[row][col] = 1 + Math.min(poss[row-1][col-1],Math.min(poss[row][col-1], poss[row-1][col]));
+                }
+            }
+        }
+
+        return poss[rowSize][colSize];
+    }
+
+
+Great, S — let’s put **Longest Valid Parentheses** side‑by‑side: the **DP approach** versus the **two‑pass scan approach**. This way you’ll see how both work, but why the two‑pass scan consistently wins in memory beats.
+
+---
+
+## 🧩 Example Input
+`s = ")()())"`
+
+Expected output = **4** (substring `"()()"`).
+
+---
+
+## ✅ Approach 1: Dynamic Programming (O(n) space)
+
+### Code
+```java
+class SolutionDP {
+    public int longestValidParentheses(String s) {
+        int n = s.length();
+        int[] dp = new int[n];
+        int maxLen = 0;
+
+        for (int i = 1; i < n; i++) {
+            if (s.charAt(i) == ')') {
+                if (s.charAt(i - 1) == '(') {
+                    dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
+                } else if (i - dp[i - 1] - 1 >= 0 && s.charAt(i - dp[i - 1] - 1) == '(') {
+                    dp[i] = dp[i - 1] + 2 + (i - dp[i - 1] >= 2 ? dp[i - dp[i - 1] - 2] : 0);
+                }
+                maxLen = Math.max(maxLen, dp[i]);
+            }
+        }
+        return maxLen;
+    }
+}
+```
+
+### Dry‑Run (DP array evolution)
+`s = ")()())"`
+
+| i | char | dp[i] | maxLen |
+|---|------|-------|--------|
+| 0 | ')'  | 0     | 0 |
+| 1 | '('  | 0     | 0 |
+| 2 | ')'  | 2     | 2 |
+| 3 | '('  | 0     | 2 |
+| 4 | ')'  | 4     | 4 |
+| 5 | ')'  | 0     | 4 |
+
+Final Answer = 4.
+
+---
+
+## ✅ Approach 2: Two‑Pass Scan (O(1) space)
+
+### Code
+```java
+class SolutionScan {
+    public int longestValidParentheses(String s) {
+        int maxLen = 0, left = 0, right = 0;
+        char[] arr = s.toCharArray();
+
+        // Left to right
+        for (char c : arr) {
+            if (c == '(') left++;
+            else right++;
+            if (left == right) maxLen = Math.max(maxLen, 2 * right);
+            else if (right > left) left = right = 0;
+        }
+
+        // Right to left
+        left = right = 0;
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (arr[i] == '(') left++;
+            else right++;
+            if (left == right) maxLen = Math.max(maxLen, 2 * left);
+            else if (left > right) left = right = 0;
+        }
+
+        return maxLen;
+    }
+}
+```
+
+### Dry‑Run (Counters evolution)
+`s = ")()())"`
+
+- **Left‑to‑right:** finds `"()()"` length = 4.  
+- **Right‑to‑left:** confirms no longer substring.  
+Final Answer = 4.
+
+---
+
+## 📊 Comparison
+
+| Approach                  | Time Complexity | Space Complexity | Percentile Notes |
+|---------------------------|-----------------|------------------|------------------|
+| DP (array)                | O(n)            | O(n)             | Runtime good, memory lower |
+| Two‑Pass Scan             | O(n)            | O(1)             | Runtime optimal, memory top tier |
+
+---
+
+## 🎯 Key Insight
+- **DP** explicitly tracks valid substring lengths ending at each index.  
+- **Two‑pass scan** uses counters only, no extra array.  
+- Both yield the same result, but the two‑pass scan is leaner and consistently beats **95%+ in memory**.  
+
+---
+
+Would you like me to also show the **stack approach** side‑by‑side with these two, so you can see how it compares in runtime and memory?

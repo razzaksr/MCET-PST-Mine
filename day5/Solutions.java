@@ -94,58 +94,21 @@ public class Solutions {
         return prev1;
     }
     /*
-    ⚙️ Approach
-    - Observation:
-    - In the circular case, if you rob the first house, you cannot rob the last.
-    - If you rob the last house, you cannot rob the first.
-    - So split into two linear subproblems:
-    - Case 1: Rob houses [0..n-2] (exclude last).
-    - Case 2: Rob houses [1..n-1] (exclude first).
-    - Answer = max(case1, case2).
-    - Helper Function (Linear Robber):
-    - Same as House Robber I.
-    - Use rolling variables (prev2, prev1) to keep track of max loot.
-
-    🛠 Complexity
-    - Time Complexity: O(n) (two linear passes).
-    - Space Complexity: O(1) (constant variables).
-
-    🔍 Example Walkthrough
-    Input: nums = [1,2,3,1]
-    - Case 1 (exclude last): [1,2,3] → max = 3
-    - Case 2 (exclude first): [2,3,1] → max = 4
-    - Answer = max(3,4) = 4
-    */
-    public int robII(int[] nums) {
-        int n = nums.length;
-        if (n == 0) return 0;
-        if (n == 1) return nums[0];
-        // Case 1: exclude last house
-        int case1 = robLinear(nums, 0, n - 2);
-        // Case 2: exclude first house
-        int case2 = robLinear(nums, 1, n - 1);
-        return Math.max(case1, case2);
-    }
-    private int robLinear(int[] nums, int start, int end) {
-        int prev2 = 0, prev1 = 0;
-        for (int i = start; i <= end; i++) {
-            int curr = Math.max(prev1, prev2 + nums[i]);
-            prev2 = prev1;
-            prev1 = curr;
-        }
-        return prev1;
-    }
-    /*
     - Time Complexity: O(\min (m,n))
     - Space Complexity: O(1)
     - ✅ Fastest approach for large grids.
     */
-    public int uniquePaths(int m, int n) {
+    public static int uniquePaths(int m, int n) {
         long res = 1;
-        int total = m + n - 2;
+        int total = m + n - 2; 
         int r = Math.min(m-1, n-1); // choose smaller for efficiency
-        for (int i = 1; i <= r; i++) 
+        for (int i = 1; i <= r; i++) {
             res = res * (total - r + i) / i;
+            System.out.println(res);
+        }
         return (int) res;
+    }
+    public static void main(String[] args) {
+        System.out.println(uniquePaths(3, 7));
     }
 }
