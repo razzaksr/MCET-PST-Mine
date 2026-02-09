@@ -64,6 +64,29 @@ public class Solutions {
     }
     public static int longestPalindromeSubseq(String s) {
         int n = s.length();
+        int[][] dp = new int[n][n];
+
+        // Base case: single characters
+        for (int i = 0; i < n; i++) {
+            dp[i][i] = 1;
+        }
+
+        // Fill for substrings of length 2..n
+        for (int len = 2; len <= n; len++) {
+            for (int i = 0; i <= n - len; i++) {
+                int j = i + len - 1;
+                if (s.charAt(i) == s.charAt(j)) {
+                    dp[i][j] = 2 + (len == 2 ? 0 : dp[i+1][j-1]);
+                } else {
+                    dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1]);
+                }
+            }
+        }
+
+        return dp[0][n-1];
+    }
+    public static int longestPalindromeSubseqVia1DP(String s) {
+        int n = s.length();
         char[] arr = s.toCharArray();   // faster than repeated charAt
         int[] dp = new int[n];          // single array for space optimization
         // Iterate backwards for i (start of substring)
@@ -80,17 +103,22 @@ public class Solutions {
         return dp[n - 1];    
     }
     // optimal only in terms of leetcode's memory and runtime beats
-    public int lengthOfLISViaGreedyWithBinSearch(int[] nums) {
+    public static int lengthOfLISViaGreedyWithBinSearch(int[] nums) {
         if (nums.length <= 1) return nums.length;
         int[] sub = new int[nums.length];
         int size = 0;
         for (int num : nums) {
             int i = Arrays.binarySearch(sub, 0, size, num);
+            System.out.println("Found "+num+" @ "+i);
             if (i < 0) i = -(i + 1);
             sub[i] = num;
+            System.out.println(Arrays.toString(sub));
             if (i == size) size++;
         }
         return size;
+    }
+    public static void main(String[] args) {
+        System.out.println(lengthOfLISViaGreedyWithBinSearch(new int[]{10,9,2,5,3,7,101,18}));
     }
     // this is standard DP way however not optimal interms of 
     // leetcode memory and runtime beats
@@ -150,7 +178,6 @@ public class Solutions {
         int maxLen = 0;
         int left = 0, right = 0;
         char[] arr = s.toCharArray();
-
         // Left to right scan
         for (char c : arr) {
             if (c == '(') left++;
@@ -158,7 +185,6 @@ public class Solutions {
             if (left == right) maxLen = Math.max(maxLen, 2 * right);
             else if (right > left) left = right = 0;
         }
-
         // Right to left scan
         left = right = 0;
         for (int i = arr.length - 1; i >= 0; i--) {
@@ -167,7 +193,6 @@ public class Solutions {
             if (left == right) maxLen = Math.max(maxLen, 2 * left);
             else if (left > right) left = right = 0;
         }
-
         return maxLen;
     }
 }

@@ -92,3 +92,48 @@ Day6 - Day9 as per TOC - 7Feb2026 - DP
     edit distance - https://leetcode.com/problems/edit-distance/description/
     
     longest valid parantheisis - https://leetcode.com/problems/longest-valid-parentheses/description/
+
+
+Day7 - Day10 as per TOC - 9Feb2026 - Binary Tree
+    intro to tree: 
+        Building binary tree from array
+        Building Generic and non generic tree from differnet data types of array
+
+    inorder recursion - https://leetcode.com/problems/binary-tree-inorder-traversal/description/
+    
+    pre order recursion - https://leetcode.com/problems/binary-tree-preorder-traversal/description/
+    
+    post order recursion - https://leetcode.com/problems/binary-tree-postorder-traversal/description/
+
+    level order by level - https://leetcode.com/problems/binary-tree-level-order-traversal/
+
+    no of nodes - https://leetcode.com/problems/count-complete-tree-nodes/description/
+
+    non leaf nodes - https://www.geeksforgeeks.org/problems/count-non-leaf-nodes-in-tree/1
+
+    diameter of the tree - https://leetcode.com/problems/diameter-of-binary-tree/description/
+
+    sum of leaf nodes - https://leetcode.com/problems/sum-of-left-leaves/description/
+
+    max path sum - https://leetcode.com/problems/binary-tree-maximum-path-sum/description/
+
+
+Day8 - Day11 as per TOC - 10Feb2026 - Binary Tree
+    invert binary tree - https://leetcode.com/problems/invert-binary-tree/description/
+
+    leaf nodes - https://leetcode.com/problems/number-of-good-leaf-nodes-pairs/description/
+
+    path sum via target - https://leetcode.com/problems/path-sum/description/
+
+    zigzag traversal - https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/description/
+    
+    right view - https://leetcode.com/problems/binary-tree-right-side-view/description/
+
+    left view in GFG - https://www.geeksforgeeks.org/problems/left-view-of-binary-tree/1
+
+    boundary traversal in GFG - https://www.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1
+
+    min height - https://leetcode.com/problems/minimum-height-trees/description/
+    
+    lowest common ancestor of a binary tree - https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/
+    
