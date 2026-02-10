@@ -1,5 +1,6 @@
 package day8;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
@@ -7,12 +8,76 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import org.w3c.dom.Node;
-
 import day7.TreeNode;
 
 public class Solutions {
     // count good pair of leaf node
+    /*
+    Perfect, S — let’s dry‑run your **`countPairs` solution** step by step on the sample tree:
+
+```
+Tree: 1,2,3,4,5,6,7
+Structure:
+            1
+          /   \
+         2     3
+        / \   / \
+       4   5 6   7
+```
+Suppose `distance = 3`.
+---
+
+## 🔄 Dry‑Run Flow
+
+### Step 1: Leaves
+- Node 4 → returns `[1,0,0,0]` (leaf at distance 0).  
+- Node 5 → returns `[1,0,0,0]`.  
+- Node 6 → returns `[1,0,0,0]`.  
+- Node 7 → returns `[1,0,0,0]`.
+
+---
+
+### Step 2: Node 2
+- Left = [1,0,0,0] (from 4), Right = [1,0,0,0] (from 5).  
+- Count pairs: i=0, j=0 → i+j+2 = 2 ≤ 3 → ans += 1×1 = 1.  
+- Build curr: curr[1] = left[0]+right[0] = 2 → `[0,2,0,0]`.  
+- Return `[0,2,0,0]`.
+
+---
+
+### Step 3: Node 3
+- Left = [1,0,0,0] (from 6), Right = [1,0,0,0] (from 7).  
+- Count pairs: i=0, j=0 → i+j+2 = 2 ≤ 3 → ans += 1×1 = 1.  
+- Build curr: curr[1] = 2 → `[0,2,0,0]`.  
+- Return `[0,2,0,0]`.
+
+---
+
+### Step 4: Node 1 (root)
+- Left = [0,2,0,0] (from 2), Right = [0,2,0,0] (from 3).  
+- Count pairs:  
+  - i=1, j=1 → i+j+2 = 4 > 3 → not valid.  
+  - No valid pairs.  
+- Build curr: curr[2] = left[1]+right[1] = 4 → `[0,0,4,0]`.  
+- Return `[0,0,4,0]`.
+
+---
+
+## ✅ Final Answer
+`ans[0] = 2`
+
+Good leaf pairs within distance 3 are:
+- (4,5) under node 2  
+- (6,7) under node 3  
+
+---
+
+## 🎯 Key Insight
+- Each leaf returns `[1,0,0,…]`.  
+- Internal nodes combine child arrays, shifting distances by +1.  
+- Pairs are counted when `i+j+2 ≤ distance`.  
+- The recursion bubbles up counts and builds distance arrays layer by layer.
+    */
     public int countPairs(TreeNode root, int distance) {
         int[] ans = new int[1];
         dfs(root, distance, ans);
@@ -33,16 +98,13 @@ public class Solutions {
             if (left[i] == 0) continue;
             for (int j = 0; j < distance; j++) {
                 if (right[j] == 0) continue;
-                if (i + j + 2 <= distance) {
-                    ans[0] += left[i] * right[j];
-                }
+                if (i + j + 2 <= distance) ans[0] += left[i] * right[j];
             }
         }
         // Build current distance array
         int[] curr = new int[distance + 1];
-        for (int i = 0; i < distance; i++) {
+        for (int i = 0; i < distance; i++) 
             curr[i + 1] = left[i] + right[i];
-        }
         return curr;
     }
     public TreeNode invertTree(TreeNode root) {
@@ -329,19 +391,14 @@ Result = [1,2,4,7,8,6,3]
     public ArrayList<Integer> boundaryTraversal(TreeNode root) {
         ArrayList<Integer> result = new ArrayList<>();
         if (root == null) return result;
-
         // Root is part of boundary if it's not a leaf
         if (!isLeaf(root)) result.add(root.val);
-
         // Add left boundary (excluding leaves)
         addLeftBoundary(root, result);
-
         // Add all leaf nodes
         addLeaves(root, result);
-
         // Add right boundary (excluding leaves, bottom-up)
         addRightBoundary(root, result);
-
         return result;
     }
 
@@ -486,99 +543,4 @@ Final centroids = `[3]`
 
         return new ArrayList<>(leaves);
     }
-    // LCA
-    /*
-    📊 Complexity
-    - Time Complexity: O(n) — each node visited once.
-    - Space Complexity: O(h) — recursion stack (h = tree height).
-Great, S — let’s dry‑run the **recursive DFS solution for Lowest Common Ancestor (LCA)** on the sample tree:
-
-```
-Input: [3,5,1,6,2,0,8,null,null,7,4]
-p = 5, q = 1
-
-Tree:
-            3
-          /   \
-         5     1
-        / \   / \
-       6   2 0   8
-          / \
-         7   4
-```
-
----
-
-## ✅ Recursive DFS Code Reminder
-
-```java
-public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-    if (root == null || root == p || root == q) return root;
-
-    TreeNode left = lowestCommonAncestor(root.left, p, q);
-    TreeNode right = lowestCommonAncestor(root.right, p, q);
-
-    if (left != null && right != null) return root;
-    return left != null ? left : right;
-}
-```
-
----
-
-## 🔄 Dry‑Run Flow
-
-### Step 1
-- Call `LCA(3, p=5, q=1)`
-- Root = 3 → not null, not p, not q
-- Recurse left → node 5
-- Recurse right → node 1
-
----
-
-### Step 2 (Left Subtree)
-- Call `LCA(5, p=5, q=1)`
-- Root = 5 → equals p → return 5
-
----
-
-### Step 3 (Right Subtree)
-- Call `LCA(1, p=5, q=1)`
-- Root = 1 → equals q → return 1
-
----
-
-### Step 4 (Back at Root 3)
-- Left result = 5  
-- Right result = 1  
-- Both non‑null → return root (3)
-
----
-
-## ✅ Final Answer
-```
-Lowest Common Ancestor = 3
-```
-
----
-
-## 🎯 Key Insight
-- The recursion stops immediately when it finds `p` or `q`.  
-- At node `3`, both left and right subtrees return non‑null, so `3` is the LCA.  
-- This works for any binary tree, not just BSTs.
-    */
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        // Base case
-        if (root == null || root == p || root == q) return root;
-
-        // Search left and right subtrees
-        TreeNode left = lowestCommonAncestor(root.left, p, q);
-        TreeNode right = lowestCommonAncestor(root.right, p, q);
-
-        // If both sides return non-null → root is LCA
-        if (left != null && right != null) return root;
-
-        // Otherwise, return whichever side is non-null
-        return left != null ? left : right;
-    }
-
 }

@@ -123,17 +123,53 @@ Day8 - Day11 as per TOC - 10Feb2026 - Binary Tree
 
     leaf nodes - https://leetcode.com/problems/number-of-good-leaf-nodes-pairs/description/
 
-    path sum via target - https://leetcode.com/problems/path-sum/description/
-
-    zigzag traversal - https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/description/
-    
-    right view - https://leetcode.com/problems/binary-tree-right-side-view/description/
+    boundary traversal in GFG - https://www.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1
 
     left view in GFG - https://www.geeksforgeeks.org/problems/left-view-of-binary-tree/1
 
-    boundary traversal in GFG - https://www.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1
+    zigzag traversal - https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/description/
 
-    min height - https://leetcode.com/problems/minimum-height-trees/description/
+    right view - https://leetcode.com/problems/binary-tree-right-side-view/description/
+
+
+Day9 - Day12 as per TOC - Binary Search Tree, AVL Tree
+    convert-sorted-array-to-binary-search-tree - https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/description/
+
+    validate-binary-search-tree - https://leetcode.com/problems/validate-binary-search-tree/description/
+
+    lowest-common-ancestor-of-a-binary-search-tree - https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+
+    kth-smallest-element-in-a-bst - https://leetcode.com/problems/kth-smallest-element-in-a-bst/description/
+
+    serialize-and-deserialize-bst - https://leetcode.com/problems/serialize-and-deserialize-bst/description/
     
-    lowest common ancestor of a binary tree - https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/
+    delete-node-in-a-bst - https://leetcode.com/problems/delete-node-in-a-bst/description/
     
+    AVL Tree Rotations - https://leetcode.com/problems/balance-a-binary-search-tree/description/
+
+
+Day10 - Day13 as per TOC - Backtracking
+    Combination Sum 1 - https://leetcode.com/problems/combination-sum/description/
+
+    Combination Sum 2 - https://leetcode.com/problems/combination-sum-ii/description/
+
+    Combination Sum 3 - https://leetcode.com/problems/combination-sum-iii/description/
+
+    Letter Combinations of a Phone Number - https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/
+
+    Permutation 1 - https://leetcode.com/problems/permutations/description/
+    
+    Permutation 2 - https://leetcode.com/problems/permutations-ii/description/
+
+    Target sum - https://leetcode.com/problems/target-sum/description/
+
+    Subsets 1 - https://leetcode.com/problems/subsets/description/
+    
+    Subsets 2 - https://leetcode.com/problems/subsets-ii/description/
+    
+
+Graph related:
+    min height - https://leetcode.com/problems/minimum-height-trees/description/ - available at day 8 solution
+
+Not discussed:
+    path sum via target - https://leetcode.com/problems/path-sum/description/ - Binary Tree - available at day 8 solution
