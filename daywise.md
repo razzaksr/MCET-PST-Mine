@@ -137,18 +137,20 @@ Day9 - Day12 as per TOC - Binary Search Tree, AVL Tree
 
     validate-binary-search-tree - https://leetcode.com/problems/validate-binary-search-tree/description/
 
-    lowest-common-ancestor-of-a-binary-search-tree - https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
-
-    kth-smallest-element-in-a-bst - https://leetcode.com/problems/kth-smallest-element-in-a-bst/description/
-
     serialize-and-deserialize-bst - https://leetcode.com/problems/serialize-and-deserialize-bst/description/
-    
+
     delete-node-in-a-bst - https://leetcode.com/problems/delete-node-in-a-bst/description/
+
+    lowest-common-ancestor-of-a-binary-search-tree - https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
     
     AVL Tree Rotations - https://leetcode.com/problems/balance-a-binary-search-tree/description/
 
 
 Day10 - Day13 as per TOC - Backtracking
+    AVL Tree Rotations: Implementation of All rotation while insertion of nodes
+
+    kth-smallest-element-in-a-bst - https://leetcode.com/problems/kth-smallest-element-in-a-bst/description/
+
     Combination Sum 1 - https://leetcode.com/problems/combination-sum/description/
 
     Combination Sum 2 - https://leetcode.com/problems/combination-sum-ii/description/
@@ -161,12 +163,52 @@ Day10 - Day13 as per TOC - Backtracking
     
     Permutation 2 - https://leetcode.com/problems/permutations-ii/description/
 
-    Target sum - https://leetcode.com/problems/target-sum/description/
-
     Subsets 1 - https://leetcode.com/problems/subsets/description/
     
     Subsets 2 - https://leetcode.com/problems/subsets-ii/description/
+
+    Target sum - https://leetcode.com/problems/target-sum/description/
     
+
+Day11 - Day14 as per TOC - Graph
+    intro - Graph structure, types
+    adjacency matrix gfg - Matrix, List<List<>>
+
+    bfs gfg - 
+
+    dfs gfg - 
+
+    clone graph - 
+
+    number of islands - 
+
+    max area of islands - 
+    
+    rotten oranges - 
+
+    cheapest flight - 
+
+
+Day12 - Day15 as per TOC - Graph
+    color border
+    
+    number of closed islands
+    
+    surrounded regions
+    
+    batteships in a board
+    
+    word ladder I
+    
+    word ladder II
+    
+    Dijsktra algorithm
+    
+    Prims algorithm
+    
+    Kruskal algorithm
+    
+
 
 Graph related:
     min height - https://leetcode.com/problems/minimum-height-trees/description/ - available at day 8 solution

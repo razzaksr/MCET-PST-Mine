@@ -20,8 +20,6 @@ public class Solutions {
         root.right = buildBST(arr, mid + 1, end);
         return root;
     }
-    
-    
     // Validate BST
     public boolean isValidBST(TreeNode root) {
         return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
@@ -32,7 +30,8 @@ public class Solutions {
         if (node.val <= min || node.val >= max) return false;
         // Left subtree must be < node.val
         // Right subtree must be > node.val
-        return validate(node.left, min, node.val) && validate(node.right, node.val, max);
+        return validate(node.left, min, node.val) 
+        && validate(node.right, node.val, max);
     }
     // LCA of BST
     // LCA
@@ -104,27 +103,108 @@ Lowest Common Ancestor = 3
         }
         return null;
     }
-    // Kth Smallest element in BST
-    private int count = 0;
-    private int result = -1;
-    public int kthSmallest(TreeNode root, int k) {
-        inorder(root, k);
-        return result;
-    }
-    private void inorder(TreeNode node, int k) {
-        if (node == null) return;
-        inorder(node.left, k);
-        count++;
-        if (count == k) {
-            result = node.val;
-            return; // stop once found
-        }
-        inorder(node.right, k);
-    }
     // Serialize and Deserialize BST
-    /* 📊 Complexity
+    /* 
+    🔍 How It Works
+- Serialization: Preorder traversal stores node values in a string.
+- Deserialization: Use BST property with bounds (lower, upper) to rebuild the tree efficiently.
+- Each node is placed in correct position without needing null markers.
+🎯 Key Insight
+- Unlike general binary trees, BSTs don’t need explicit null markers in serialization.
+- Bounds (lower, upper) ensure correct placement during reconstruction.
+- This makes the solution compact and efficient.
+
+    📊 Complexity
     - Time Complexity: O(n) — each node visited once during serialization and deserialization.
     - Space Complexity: O(n) — string storage + recursion stack.
+    Great choice — let’s dry‑run your **serialize/deserialize BST solution** step by step on the sample tree `[2,1,3]`.  
+
+---
+
+## 🌳 Input Tree
+```
+    2
+   / \
+  1   3
+```
+
+---
+
+## 🔄 Serialization (Preorder Traversal)
+
+### Code Path
+```java
+public String serialize(TreeNode root) {
+    StringBuilder sb = new StringBuilder();
+    preorder(root, sb);
+    return sb.toString().trim();
+}
+```
+
+### Step‑by‑Step
+1. Start at root `2` → append `"2 "`  
+2. Go left → node `1` → append `"1 "`  
+3. Left of `1` is null → return  
+4. Right of `1` is null → return  
+5. Back to root → go right → node `3` → append `"3 "`  
+6. Left of `3` is null → return  
+7. Right of `3` is null → return  
+
+**Final serialized string:**  
+```
+"2 1 3"
+```
+
+---
+
+## 🔄 Deserialization (Rebuild Tree with Bounds)
+
+### Code Path
+```java
+public TreeNode deserialize(String data) {
+    if (data.isEmpty()) return null;
+    String[] vals = data.split(" ");
+    Queue<Integer> queue = new LinkedList<>();
+    for (String v : vals) queue.offer(Integer.parseInt(v));
+    return build(queue, Integer.MIN_VALUE, Integer.MAX_VALUE);
+}
+```
+
+### Step‑by‑Step
+Queue initially: `[2,1,3]`
+
+#### Build Root
+- Peek = 2, within bounds `(-∞, +∞)` → poll → create node(2)  
+- Recurse left with bounds `(-∞, 2)`  
+- Recurse right with bounds `(2, +∞)`
+
+#### Build Left Subtree
+- Peek = 1, within bounds `(-∞, 2)` → poll → create node(1)  
+- Left bounds `(-∞, 1)` → next peek = 3, but 3 > 1 → return null  
+- Right bounds `(1, 2)` → next peek = 3, but 3 ≥ 2 → return null  
+- Left child = 1 with no children
+
+#### Build Right Subtree
+- Peek = 3, within bounds `(2, +∞)` → poll → create node(3)  
+- Left bounds `(2, 3)` → queue empty → return null  
+- Right bounds `(3, +∞)` → queue empty → return null  
+- Right child = 3 with no children
+
+---
+
+## ✅ Final Tree Reconstructed
+```
+    2
+   / \
+  1   3
+```
+
+## 🎯 Key Insight
+- **Serialization**: simple preorder traversal builds `"2 1 3"`.  
+- **Deserialization**: bounds (`lower`, `upper`) ensure correct BST placement.  
+  - `1` fits only in left subtree of `2`.  
+  - `3` fits only in right subtree of `2`.  
+- This guarantees the BST is reconstructed exactly.
     */
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
@@ -158,13 +238,109 @@ Lowest Common Ancestor = 3
         return node;
     }
     // delete node in BST
+    /*
+    🔍 How It Works
+- Traverse the tree until the node with value key is found.
+- Cases:
+- If the node has no child → return null.
+- If the node has one child → return that child.
+- If the node has two children → replace its value with the inorder successor (smallest node in right subtree), then delete that successor recursively.
+
+📊 Complexity
+- Time Complexity: O(h), where h = tree height (worst case O(n), best case O(log n) for balanced BST).
+- Space Complexity: O(h) recursion stack.
+
+🎯 Key Insight
+- Using the inorder successor ensures BST properties remain valid after deletion.
+- This recursive approach is concise and widely accepted in interviews.
+Let’s dry‑run your **BST deleteNode solution** step by step on the sample tree:
+
+Input BST (level order):  
+`[5,3,6,2,4,null,7]`  
+Key to delete: `3`
+
+---
+
+## 🌳 Initial Tree Structure
+```
+        5
+       / \
+      3   6
+     / \    \
+    2   4    7
+```
+
+---
+
+## 🔄 Step‑by‑Step Execution
+
+### Call: `deleteNode(root=5, key=3)`
+- Root = 5  
+- Key (3) < 5 → recurse left: `root.left = deleteNode(3, 3)`
+
+---
+
+### Call: `deleteNode(root=3, key=3)`
+- Root = 3  
+- Key == root.val → found node to delete.  
+- Node has **two children** (left=2, right=4).  
+- Find inorder successor in right subtree.
+
+---
+
+### Find Successor: `findMin(root.right=4)`
+- Start at node 4.  
+- Left child is null → successor = 4.
+
+---
+
+### Replace Node Value
+- Replace node(3).val with successor.val = 4.  
+- Tree now looks like:
+```
+        5
+       / \
+      4   6
+     /     \
+    2       7
+```
+
+- Now delete successor (value 4) from right subtree:  
+  `root.right = deleteNode(root.right, 4)`
+
+---
+
+### Call: `deleteNode(root=4, key=4)`
+- Root = 4  
+- Key == root.val → found node to delete.  
+- Node has **no children** → return `null`.  
+- So node(4) is removed.
+
+---
+
+## ✅ Final Tree After Deletion
+```
+        5
+       / \
+      4   6
+     /     \
+    2       7
+```
+
+---
+
+## 🎯 Key Insight
+- **Step 1:** Traverse left until node with value 3 is found.  
+- **Step 2:** Node 3 has two children → replace with inorder successor (smallest in right subtree).  
+- **Step 3:** Successor = 4 → copy value into node.  
+- **Step 4:** Delete original successor node (4).  
+- **Result:** BST remains valid, with node 3 replaced by 4.
+    */
     public TreeNode deleteNode(TreeNode root, int key) {
         if (root == null) return null;
-        if (key < root.val) {
-            root.left = deleteNode(root.left, key);
-        } else if (key > root.val) {
-            root.right = deleteNode(root.right, key);
-        } else {
+        if (key < root.val) root.left = deleteNode(root.left, key);
+        else if (key > root.val) root.right = deleteNode(root.right, key);
+        else {
             // Found the node to delete
             if (root.left == null) return root.right;
             if (root.right == null) return root.left;
@@ -176,11 +352,9 @@ Lowest Common Ancestor = 3
         return root;
     }
     private TreeNode findMin(TreeNode node) {
-        while (node.left != null)
-            node = node.left;
+        while (node.left != null) node = node.left;
         return node;
     }
-    // AVL / Balance BST from Unbalanced
     /*
     📊 Complexity
 - Time Complexity: O(n) — inorder traversal + building balanced tree.

@@ -4,7 +4,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import day7.TreeNode;
+
 public class Solutions {
+    // Kth Smallest element in BST
+    private int count = 0;
+    private int result = -1;
+    public int kthSmallest(TreeNode root, int k) {
+        inorder(root, k);
+        return result;
+    }
+    private void inorder(TreeNode node, int k) {
+        if (node == null) return;
+        inorder(node.left, k);
+        count++;
+        if (count == k) {
+            result = node.val;
+            return; // stop once found
+        }
+        inorder(node.right, k);
+    }
     /*
     🔍 How It Works
 - Start from index 0 and try each candidate.
@@ -83,12 +102,12 @@ Try each candidate starting from index 0.
 - Adds path when target == 0.  
 - Reuses elements by passing same index in recursive call.
     */
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> result = new ArrayList<>();
         backtrack(candidates, target, 0, new ArrayList<>(), result);
         return result;
     }
-    private void backtrack(int[] candidates, int target, int start, List<Integer> path, List<List<Integer>> result) {
+    private static void backtrack(int[] candidates, int target, int start, List<Integer> path, List<List<Integer>> result) {
         if (target == 0) {
             result.add(new ArrayList<>(path));
             return;
@@ -273,23 +292,19 @@ Final result:
 ["ad","ae","af","bd","be","bf","cd","ce","cf"]
     */
     private static final String[] KEYPAD = {
-        "",    "",    "abc", "def", "ghi", "jkl",
-        "mno", "pqrs", "tuv", "wxyz"
+        "","", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"
     };
-
     public List<String> letterCombinations(String digits) {
         List<String> result = new ArrayList<>();
         if (digits == null || digits.length() == 0) return result;
         backtrack(digits, 0, new StringBuilder(), result);
         return result;
     }
-
     private void backtrack(String digits, int index, StringBuilder path, List<String> result) {
         if (index == digits.length()) {
             result.add(path.toString());
             return;
         }
-
         String letters = KEYPAD[digits.charAt(index) - '0'];
         for (char c : letters.toCharArray()) {
             path.append(c);
@@ -331,15 +346,11 @@ Final result:
             result.add(new ArrayList<>(path));
             return;
         }
-
         for (int i = 0; i < nums.length; i++) {
             if (used[i]) continue; // skip already used numbers
-
             used[i] = true;
             path.add(nums[i]);
-
             backtrack(nums, used, path, result);
-
             // backtrack
             path.remove(path.size() - 1);
             used[i] = false;
@@ -384,15 +395,11 @@ Final result:
         }
         for (int i = 0; i < nums.length; i++) {
             if (used[i]) continue;
-
             // Skip duplicates: if current == previous and previous not used, skip
             if (i > 0 && nums[i] == nums[i - 1] && !used[i - 1]) continue;
-
             used[i] = true;
             path.add(nums[i]);
-
             backtrack2(nums, used, path, result);
-
             // backtrack
             path.remove(path.size() - 1);
             used[i] = false;
@@ -423,30 +430,26 @@ Input: nums = [1,1,1,1,1], target = -3
 - The corrected solution ensures both bounds check and parity check are applied before computing DP.
 
     */
-    public int findTargetSumWays(int[] nums, int target) {
+    public static int findTargetSumWays(int[] nums, int target) {
         int sum = 0;
         for (int num : nums) sum += num;
-
         // If target is outside [-sum, sum], impossible
         if (Math.abs(target) > sum) return 0;
-
         // (target + sum) must be even to form valid subset sum
         if ((target + sum) % 2 != 0) return 0;
-
         int subsetSum = (target + sum) / 2;
         return countSubsets(nums, subsetSum);
     }
 
-    private int countSubsets(int[] nums, int target) {
+    private static int countSubsets(int[] nums, int target) {
         int[] dp = new int[target + 1];
         dp[0] = 1; // one way to make sum 0
-
-        for (int num : nums) {
-            for (int j = target; j >= num; j--) {
-                dp[j] += dp[j - num];
-            }
-        }
+        for (int num : nums)
+            for (int j = target; j >= num; j--) dp[j] += dp[j - num];
         return dp[target];
+    }
+    public static void main(String[] args) {
+        System.out.println(findTargetSumWays(new int[]{1,1,1,1,1}, 3));
     }
     // subset 1
     /*
@@ -481,7 +484,6 @@ Final result:
     private void backtrack(int[] nums, int start, List<Integer> path, List<List<Integer>> result) {
         // Add current subset
         result.add(new ArrayList<>(path));
-
         for (int i = start; i < nums.length; i++) {
             path.add(nums[i]);
             backtrack(nums, i + 1, path, result);
