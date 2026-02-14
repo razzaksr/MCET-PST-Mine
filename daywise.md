@@ -174,39 +174,37 @@ Day11 - Day14 as per TOC - Graph
     intro - Graph structure, types
     adjacency matrix gfg - Matrix, List<List<>>
 
-    bfs gfg - 
+    bfs gfg - https://www.geeksforgeeks.org/problems/bfs-traversal-of-graph/1
 
-    dfs gfg - 
+    dfs gfg - https://www.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1
 
-    clone graph - 
+    clone graph - https://leetcode.com/problems/clone-graph/description/
 
-    number of islands - 
+    number of islands - https://leetcode.com/problems/number-of-islands/description/
 
-    max area of islands - 
+    max area of islands - https://leetcode.com/problems/max-area-of-island/description/
+
+    number of closed islands - https://leetcode.com/problems/number-of-closed-islands/description/
     
-    rotten oranges - 
+    rotten oranges - https://leetcode.com/problems/rotting-oranges/description/
 
-    cheapest flight - 
+    cheapest flight - https://leetcode.com/problems/cheapest-flights-within-k-stops/description/
 
 
 Day12 - Day15 as per TOC - Graph
-    color border
+    color border - https://leetcode.com/problems/coloring-a-border/description/
     
-    number of closed islands
+    surrounded regions - https://leetcode.com/problems/surrounded-regions/description/
     
-    surrounded regions
-    
-    batteships in a board
-    
-    word ladder I
-    
-    word ladder II
-    
-    Dijsktra algorithm
-    
-    Prims algorithm
-    
-    Kruskal algorithm
+    word ladder I - https://leetcode.com/problems/word-ladder/description/
+
+    batteships in a board - https://leetcode.com/problems/battleships-in-a-board/description/
+
+    Find Judge in town - https://leetcode.com/problems/find-the-town-judge/description/
+
+    Dijsktra algorithm - https://leetcode.com/problems/path-with-maximum-probability/
+
+    word ladder II - https://leetcode.com/problems/word-ladder-ii/description/
     
 
 
